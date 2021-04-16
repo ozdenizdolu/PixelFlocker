@@ -1,5 +1,5 @@
 String filename = "test";
-String fileext = ".png";
+String fileext = ".jpg";
 String foldername = "./";
 PGraphics pg;
 PImage img;
@@ -16,7 +16,7 @@ void setup() {
     pg.image(img, 0, 0);
     pg.endDraw();
     flock = new ArrayList<Patch>();
-    for (int i = 0; i < 300; i++) {
+    for (int i = 0; i < 3000; i++) {
         int pixelX = int(random(width));
         int pixelY = int(random(height));
         flock.add(new PixelPatch(

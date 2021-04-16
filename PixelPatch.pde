@@ -15,7 +15,7 @@ class PixelPatch extends Patch {
     void draw() {
         fill(clr);
         stroke(clr);
-        strokeWeight(5);
+        strokeWeight(6);
         point(this.position.x, this.position.y);
     }
 }
