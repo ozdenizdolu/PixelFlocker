@@ -28,7 +28,6 @@ void setup() {
 void draw() {
     for (Patch p : flock) {
         p.draw();
-        p.align(flock);
-        p.update();
+        p.update(flock);
     }
 }

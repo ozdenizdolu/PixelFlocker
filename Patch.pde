@@ -20,7 +20,23 @@ class Patch {
         this();
         this.position = position;
     }
-    void align(ArrayList<Patch> patches) {
+    PVector cohesion(ArrayList<Patch> patches) {
+        PVector avg = new PVector();
+        int totalPerceptiblePatches = 0;
+        for (Patch patch : patches) {
+            if (this.perceptionRange >= this.position.dist(patch.position)) {
+                avg.add(patch.position);    
+                totalPerceptiblePatches++;
+                // might need to exclude this patch in this calculation
+            }
+        }
+        avg.div(totalPerceptiblePatches);
+        PVector steering = new PVector();
+        steering = PVector.sub(avg, this.position);
+        steering.div(this.mass);
+        return steering;
+    }
+    PVector align(ArrayList<Patch> patches) {
         PVector avg = new PVector();
         int totalPerceptiblePatches = 0;
         for (Patch patch : patches) {
@@ -34,11 +50,13 @@ class Patch {
         PVector steering = new PVector();
         steering = PVector.sub(avg, this.velocity);
         steering.div(this.mass);
-        this.acceleration = steering; 
+        return steering;
     }
-    void update() {
+    void update(ArrayList<Patch> patches) {
         this.position.add(this.velocity);
         this.velocity.add(this.acceleration);
+        this.acceleration = align(patches);
+        this.acceleration.add(cohesion(patches));
     }
     void draw() {
         ellipse(position.x, position.y, 15, 15);
