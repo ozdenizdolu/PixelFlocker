@@ -16,13 +16,16 @@ void setup() {
     pg.image(img, 0, 0);
     pg.endDraw();
     flock = new ArrayList<Patch>();
-    for (int i = 0; i < 50; i++) {
-        flock.add(new Patch());
+    for (int i = 0; i < 300; i++) {
+        int pixelX = int(random(width));
+        int pixelY = int(random(height));
+        flock.add(new PixelPatch(
+            new PVector(pixelX, pixelY),
+            pg.get(pixelX, pixelY)));
     }
+    image(pg, 0, 0, img.width, img.height);
 }
 void draw() {
-    fill(250);
-    image(pg, 0, 0, img.width, img.height);
     for (Patch p : flock) {
         p.draw();
         p.align(flock);
